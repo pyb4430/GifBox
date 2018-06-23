@@ -1,0 +1,99 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:8134829776775550438",
+      "lastPropertyId": "3:6368112005747693311",
+      "name": "Gif",
+      "properties": [
+        {
+          "id": "1:3627512821420214690",
+          "name": "id"
+        },
+        {
+          "id": "2:6663446827493560284",
+          "name": "url"
+        },
+        {
+          "id": "3:6368112005747693311",
+          "indexId": "1:1898974799983480249",
+          "name": "gifImageDataId"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:3106400197522465588",
+      "lastPropertyId": "6:2742473935445396868",
+      "name": "GifData",
+      "properties": [
+        {
+          "id": "1:9076531422081923508",
+          "name": "width"
+        },
+        {
+          "id": "2:1442420866987532946",
+          "name": "height"
+        },
+        {
+          "id": "3:3535042849709305261",
+          "name": "size"
+        },
+        {
+          "id": "4:3222865025498245924",
+          "name": "url"
+        },
+        {
+          "id": "5:5251106113329744221",
+          "name": "mp4"
+        },
+        {
+          "id": "6:2742473935445396868",
+          "name": "mp4Size"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:466918375324956172",
+      "lastPropertyId": "4:1541312969175921136",
+      "name": "GifImageData",
+      "properties": [
+        {
+          "id": "1:3123908054976436191",
+          "indexId": "2:2521344239428162038",
+          "name": "originalStillId"
+        },
+        {
+          "id": "2:6619788250863239037",
+          "indexId": "3:4052337009573937637",
+          "name": "previewId"
+        },
+        {
+          "id": "3:8123793828747274188",
+          "indexId": "4:8605249916019335287",
+          "name": "fixedWidthSmallStillId"
+        },
+        {
+          "id": "4:1541312969175921136",
+          "indexId": "5:8222486930531800170",
+          "name": "fixedWidthSmallId"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "3:466918375324956172",
+  "lastIndexId": "5:8222486930531800170",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

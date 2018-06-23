@@ -1,15 +1,12 @@
 package com.example.taylor.gifbox.module
 
 import android.app.Application
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
 import com.example.taylor.gifbox.controller.ApiController
 import com.example.taylor.gifbox.controller.DataController
-import com.example.taylor.gifbox.model.Gif
-import com.example.taylor.gifbox.model.GifDao
+import com.example.taylor.gifbox.model.MyObjectBox
 import dagger.Module
 import dagger.Provides
+import io.objectbox.BoxStore
 import javax.inject.Singleton
 
 /**
@@ -20,18 +17,13 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(application: Application): GifBoxDatabase {
-        return Room.databaseBuilder(application, GifBoxDatabase::class.java, "gifbox_database").build()
+    fun provideDatabase(application: Application): BoxStore {
+        return MyObjectBox.builder().androidContext(application).build()
     }
 
     @Singleton
     @Provides
-    fun provideDataController(database: GifBoxDatabase, apiController: ApiController): DataController {
+    fun provideDataController(database: BoxStore, apiController: ApiController): DataController {
         return DataController(database, apiController)
     }
-}
-
-@Database(entities = [Gif::class], version = 1)
-abstract class GifBoxDatabase: RoomDatabase() {
-    abstract fun gifDao(): GifDao
 }
