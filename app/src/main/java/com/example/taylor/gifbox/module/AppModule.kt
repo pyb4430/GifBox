@@ -1,4 +1,4 @@
-package com.example.taylor.gifbox
+package com.example.taylor.gifbox.module
 
 import android.app.Application
 import android.content.SharedPreferences

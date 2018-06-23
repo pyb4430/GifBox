@@ -1,5 +1,7 @@
-package com.example.taylor.gifbox
+package com.example.taylor.gifbox.module
 
+import com.example.taylor.gifbox.GiphyApi
+import com.example.taylor.gifbox.controller.ApiController
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

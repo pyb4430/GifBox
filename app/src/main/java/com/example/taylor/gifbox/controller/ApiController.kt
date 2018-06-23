@@ -1,8 +1,8 @@
-package com.example.taylor.gifbox
+package com.example.taylor.gifbox.controller
 
+import com.example.taylor.gifbox.GiphyApi
 import com.example.taylor.gifbox.response.GifListResponse
 import retrofit2.Callback
-import javax.inject.Inject
 
 /**
  * Created by Taylor on 1/28/2018.

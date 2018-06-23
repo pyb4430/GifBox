@@ -1,6 +1,9 @@
 package com.example.taylor.gifbox
 
 import android.app.Application
+import com.example.taylor.gifbox.module.ApiModule
+import com.example.taylor.gifbox.module.AppModule
+import com.example.taylor.gifbox.module.DataModule
 import okhttp3.logging.HttpLoggingInterceptor
 import timber.log.Timber
 
@@ -21,6 +24,7 @@ class GifBoxApplication: Application() {
                 apiModule(ApiModule(getString(R.string.giphy_api_base_url),
                         getString(R.string.giphy_api_key),
                         HttpLoggingInterceptor.Level.BODY)).
+                dataModule(DataModule()).
                 build()
     }
 }

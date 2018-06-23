@@ -1,13 +1,12 @@
 package com.example.taylor.gifbox
 
+import android.arch.lifecycle.Observer
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.example.taylor.gifbox.response.GifListResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.taylor.gifbox.controller.DataController
+import com.example.taylor.gifbox.model.Gif
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var userPrefs: SharedPreferences
 
     @Inject
-    lateinit var apiController: ApiController
+    lateinit var dataController: DataController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,20 +23,14 @@ class MainActivity : AppCompatActivity() {
 
         (application as GifBoxApplication).appComponent.inject(this)
 
-        Log.d("Main" , "prefs ${userPrefs.all}")
+        val gifs = dataController.getAllGifs()
 
-        apiController.fetchTrending(20, "R", object : Callback<GifListResponse> {
-            override fun onResponse(call: Call<GifListResponse>?, response: Response<GifListResponse>?) {
-                response?.body()?.let {
-                    it.gifList?.forEach {
-                        Log.d("Main", "gif list url: ${ it.url }")
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<GifListResponse>?, t: Throwable?) {
-
+        gifs.observe(this, object : Observer<List<Gif>> {
+            override fun onChanged(t: List<Gif>?) {
+                Timber.d("gif list: ${t}")
             }
         })
+
+        dataController.fetchTrending()
     }
 }
