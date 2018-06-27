@@ -6,4 +6,4 @@ import com.squareup.moshi.Json
 /**
  * Created by Taylor on 1/28/2018.
  */
-class GifListResponse(@Json(name = "data") var gifList: List<Gif>? = null)
+class GifListResponse(@Json(name = "data") var gifList: List<Gif>)

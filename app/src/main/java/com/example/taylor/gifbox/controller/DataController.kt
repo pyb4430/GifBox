@@ -3,37 +3,37 @@ package com.example.taylor.gifbox.controller
 import android.arch.lifecycle.LiveData
 import com.example.taylor.gifbox.model.Gif
 import com.example.taylor.gifbox.module.GifBoxDatabase
-import com.example.taylor.gifbox.response.GifListResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.Completable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import timber.log.Timber
 
 /**
  * Created by Taylor on 1/29/2018.
  */
-class DataController(val db: GifBoxDatabase, val apiController: ApiController) {
+class DataController(private val db: GifBoxDatabase, private val apiController: ApiController) {
 
     // api calls
 
     fun fetchTrending() {
-        apiController.fetchTrending(20, "R", object : Callback<GifListResponse> {
-            override fun onResponse(call: Call<GifListResponse>?, response: Response<GifListResponse>?) {
-                response?.body()?.gifList?.let {
-                    writeGifMetaDatas(it)
-                }
-            }
-
-            override fun onFailure(call: Call<GifListResponse>?, t: Throwable?) {
-
-            }
-        })
+        apiController.fetchTrending(10, "R")
+                .subscribe(
+                        {
+                            writeGifMetaDatas(it.gifList)
+                        },
+                        { Timber.d(it) }
+                )
     }
 
 
     // db writes
 
-    fun writeGifMetaDatas(gifs: List<Gif>) {
-        db.gifDao().insertAll(*gifs.toTypedArray())
+    private fun writeGifMetaDatas(gifs: List<Gif>) {
+        Timber.d("hello: $gifs")
+        Completable.fromCallable {
+                    db.gifDao().insertAll(*gifs.toTypedArray())
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
     }
 
 

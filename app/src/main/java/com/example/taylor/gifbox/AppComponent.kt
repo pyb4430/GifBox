@@ -3,6 +3,7 @@ package com.example.taylor.gifbox
 import com.example.taylor.gifbox.module.ApiModule
 import com.example.taylor.gifbox.module.AppModule
 import com.example.taylor.gifbox.module.DataModule
+import com.example.taylor.gifbox.viewmodel.MainActivityVM
 import dagger.Component
 import javax.inject.Singleton
 
@@ -12,5 +13,5 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [AppModule::class, ApiModule::class, DataModule::class])
 interface AppComponent {
-    fun inject(mainActivity: MainActivity)
+    fun inject(mainActivityVM: MainActivityVM)
 }
