@@ -28,7 +28,6 @@ class DataController(private val db: GifBoxDatabase, private val apiController: 
     // db writes
 
     private fun writeGifMetaDatas(gifs: List<Gif>) {
-        Timber.d("hello: $gifs")
         Completable.fromCallable {
                     db.gifDao().insertAll(*gifs.toTypedArray())
                 }
@@ -37,7 +36,7 @@ class DataController(private val db: GifBoxDatabase, private val apiController: 
     }
 
 
-    // data gets
+    // db reads
 
     fun getAllGifs(): LiveData<List<Gif>> {
         return db.gifDao().getAll()

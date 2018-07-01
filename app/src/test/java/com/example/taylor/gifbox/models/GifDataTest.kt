@@ -1,33 +1,16 @@
 package com.example.taylor.gifbox.models
 
-import com.example.taylor.gifbox.readJsonFile
-import com.example.taylor.gifbox.response.GifListResponse
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.example.taylor.gifbox.getGifListResponse
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Test
 
 class GifDataTest {
 
-    lateinit var moshiAdapter: JsonAdapter<GifListResponse>
-
-    @Before
-    fun setUp() {
-        moshiAdapter = Moshi.Builder()
-                .add(KotlinJsonAdapterFactory()).build().adapter(GifListResponse::class.java)
-    }
-
     @Test
     fun testMoshiLoadFromJson() {
-        val jsonString = readJsonFile(this, "GifListResponse.json")
-        val gifListResponse = moshiAdapter.fromJson(jsonString)
-        val gifList = gifListResponse?.gifList
-        assertNotNull(gifList)
-        if (gifList == null) {
-            return
-        }
+        //TODO: Use getObjFromJsonFile instead
+        val gifListResponse = getGifListResponse()
+        val gifList = gifListResponse.gifList
 
         assertEquals("3vCtbqmOnksLu", gifList[0].id)
         assertEquals("https://giphy.com/gifs/after-carter-pedestrian-3vCtbqmOnksLu", gifList[0].url)
@@ -59,6 +42,5 @@ class GifDataTest {
         assertNull(gifList[0].gifImageData.preview.size)
         assertEquals(320, gifList[0].gifImageData.preview.width)
         assertEquals(234, gifList[0].gifImageData.preview.height)
-
     }
 }

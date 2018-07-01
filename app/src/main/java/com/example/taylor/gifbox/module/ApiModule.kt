@@ -2,7 +2,7 @@ package com.example.taylor.gifbox.module
 
 import com.example.taylor.gifbox.GiphyApi
 import com.example.taylor.gifbox.controller.ApiController
-import com.example.taylor.gifbox.response.GifListResponse
+import com.example.taylor.gifbox.controller.ApiControllerImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -53,6 +53,6 @@ class ApiModule(val baseUrl: String, val apiKey: String, val logLevel: HttpLoggi
     @Singleton
     @Provides
     fun provideApiController(giphyApi: GiphyApi): ApiController {
-        return ApiController(giphyApi, apiKey)
+        return ApiControllerImpl(giphyApi, apiKey)
     }
 }

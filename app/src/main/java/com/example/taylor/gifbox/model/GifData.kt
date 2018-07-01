@@ -32,4 +32,7 @@ interface GifDao {
 
     @Query("SELECT * FROM gif")
     fun getAll(): LiveData<List<Gif>>
+
+    @Query("SELECT * FROM gif")
+    fun getAllNow(): List<Gif>
 }
