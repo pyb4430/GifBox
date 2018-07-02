@@ -10,7 +10,7 @@ import timber.log.Timber
 /**
  * Created by Taylor on 1/27/2018.
  */
-class GifBoxApplication: Application() {
+open class GifBoxApplication: Application() {
 
     lateinit var appComponent: AppComponent
 

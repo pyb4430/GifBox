@@ -10,11 +10,11 @@ import timber.log.Timber
 /**
  * Created by Taylor on 1/29/2018.
  */
-class DataController(private val db: GifBoxDatabase, private val apiController: ApiController) {
+class DataControllerImpl(private val db: GifBoxDatabase, private val apiController: ApiController): DataController {
 
     // api calls
 
-    fun fetchTrending() {
+    override fun fetchTrending() {
         apiController.fetchTrending(10, "R")
                 .subscribe(
                         {
@@ -38,8 +38,12 @@ class DataController(private val db: GifBoxDatabase, private val apiController: 
 
     // db reads
 
-    fun getAllGifs(): LiveData<List<Gif>> {
+    override fun getAllGifs(): LiveData<List<Gif>> {
         return db.gifDao().getAll()
     }
+}
 
+interface DataController {
+    fun fetchTrending()
+    fun getAllGifs(): LiveData<List<Gif>>
 }

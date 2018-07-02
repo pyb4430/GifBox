@@ -6,6 +6,7 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import com.example.taylor.gifbox.controller.ApiController
 import com.example.taylor.gifbox.controller.DataController
+import com.example.taylor.gifbox.controller.DataControllerImpl
 import com.example.taylor.gifbox.model.Gif
 import com.example.taylor.gifbox.model.GifDao
 import dagger.Module
@@ -27,7 +28,7 @@ class DataModule {
     @Singleton
     @Provides
     fun provideDataController(database: GifBoxDatabase, apiController: ApiController): DataController {
-        return DataController(database, apiController)
+        return DataControllerImpl(database, apiController)
     }
 }
 
