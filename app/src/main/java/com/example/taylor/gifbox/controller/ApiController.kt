@@ -9,11 +9,11 @@ import io.reactivex.Observable
  */
 class ApiControllerImpl(private val api: GiphyApi, private val apiKey: String): ApiController {
 
-    override fun fetchTrending(limit: Int, rating: String): Observable<GifListResponse> {
-        return api.fetchTrending(apiKey, limit, rating)
+    override fun fetchTrending(limit: Int, rating: String, offset: Int): Observable<GifListResponse> {
+        return api.fetchTrending(apiKey, limit, rating, offset)
     }
 }
 
 interface ApiController {
-    fun fetchTrending(limit: Int, rating: String): Observable<GifListResponse>
+    fun fetchTrending(limit: Int, rating: String, offset:Int): Observable<GifListResponse>
 }

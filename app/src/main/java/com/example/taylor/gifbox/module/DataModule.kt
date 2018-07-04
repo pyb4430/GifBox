@@ -9,6 +9,7 @@ import com.example.taylor.gifbox.controller.DataController
 import com.example.taylor.gifbox.controller.DataControllerImpl
 import com.example.taylor.gifbox.model.Gif
 import com.example.taylor.gifbox.model.GifDao
+import com.example.taylor.gifbox.model.PaginationObject
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -27,10 +28,18 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideDataController(database: GifBoxDatabase, apiController: ApiController): DataController {
-        return DataControllerImpl(database, apiController)
+    fun provideDataController(database: GifBoxDatabase, apiController: ApiController, paginationMap: PaginationMap): DataController {
+        return DataControllerImpl(database, apiController, paginationMap)
+    }
+
+    @Singleton
+    @Provides
+    fun providePaginationMap(): PaginationMap {
+        return PaginationMap()
     }
 }
+
+typealias PaginationMap = HashMap<String, PaginationObject>
 
 @Database(entities = [Gif::class], version = 1)
 abstract class GifBoxDatabase: RoomDatabase() {

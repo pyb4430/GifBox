@@ -1,6 +1,7 @@
 package com.example.taylor.gifbox.model
 
 import android.arch.lifecycle.LiveData
+import android.arch.paging.DataSource
 import android.arch.persistence.room.*
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import com.squareup.moshi.Json
@@ -25,10 +26,17 @@ data class GifData(val width: Int,
                    val mp4: String?,
                    @Json(name = "mp4_size") val mp4Size: Long?)
 
+data class PaginationObject(val offset: Int,
+                            @Json(name = "total_count") val totalCount: Int,
+                            val count: Int)
+
 @Dao
 interface GifDao {
     @Insert(onConflict = REPLACE)
     fun insertAll(vararg gif: Gif)
+
+    @Query("SELECT * FROM gif")
+    fun getAllPaginated(): DataSource.Factory<Int, Gif>
 
     @Query("SELECT * FROM gif")
     fun getAll(): LiveData<List<Gif>>
