@@ -18,13 +18,11 @@ class MainActivityVM(application: Application): AndroidViewModel(application) {
     @Inject
     lateinit var dataController: DataController
 
-    val trendingGifs: LiveData<List<Gif>>
     val trendingGifPagedList: LiveData<PagedList<Gif>>
 
     init {
         (application as GifBoxApplication).appComponent.inject(this)
 
-        trendingGifs = dataController.getAllGifs()
         trendingGifPagedList = LivePagedListBuilder(dataController.getAllGifsPaginated(), 10)
                 .setBoundaryCallback(TrendingBoundaryCallback(application))
                 .build()

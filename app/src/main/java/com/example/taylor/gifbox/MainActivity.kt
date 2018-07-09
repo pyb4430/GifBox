@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewModel = ViewModelProviders.of(this).get(MainActivityVM::class.java)
-        viewModel.trendingGifs.observe(this, Observer<List<Gif>> { t -> Timber.d("gif list: $t") })
+//        viewModel.trendingGifs.observe(this, Observer<List<Gif>> { t -> Timber.d("gif list: $t") })
         viewModel.trendingGifPagedList.observe(this, Observer { adapter.submitList(it)})
 
         recyclerView.adapter = adapter
