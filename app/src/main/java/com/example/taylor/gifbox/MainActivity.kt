@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.refreshTrending()
         }
 
-        viewModel.trendingLoading.observe(this, Observer {
+        viewModel.firstPageLoading.observe(this, Observer {
             feedSwipeRefresh.isRefreshing = it == true
         })
     }

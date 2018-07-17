@@ -23,14 +23,14 @@ class MainActivityVM(application: Application): AndroidViewModel(application) {
     val trendingGifPagedList: LiveData<PagedList<Gif>>
     val pagingCallback: TrendingBoundaryCallback
 
-    val trendingLoading = MutableLiveData<Boolean>()
+    val firstPageLoading = MutableLiveData<Boolean>()
 
     init {
         (application as GifBoxApplication).appComponent.inject(this)
 
-        trendingLoading.value = false
+        firstPageLoading.value = false
 
-        pagingCallback = TrendingBoundaryCallback(application, trendingLoading)
+        pagingCallback = TrendingBoundaryCallback(application, firstPageLoading)
         trendingGifPagedList = LivePagedListBuilder(dataController.getAllGifsPaginated(), 10)
                 .setBoundaryCallback(pagingCallback)
                 .build()

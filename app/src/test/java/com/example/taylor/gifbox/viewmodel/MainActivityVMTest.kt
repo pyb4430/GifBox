@@ -36,12 +36,12 @@ class MainActivityVMTest {
 
     @Test
     fun testTrendingGifs() {
-        assertEquals(mockLiveData, viewModel.trendingGifs)
+        assertEquals(mockLiveData, viewModel.trendingGifPagedList)
     }
 
     @Test
     fun testFetchTrendingGifs() {
-        viewModel.fetchTrending()
+        viewModel.refreshTrending()
         verify(testAppComponent.dataController).fetchTrending()
     }
 }
