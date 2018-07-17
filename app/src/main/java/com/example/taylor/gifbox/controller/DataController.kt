@@ -14,7 +14,8 @@ import timber.log.Timber
 /**
  * Created by Taylor on 1/29/2018.
  */
-class DataControllerImpl(private val db: GifBoxDatabase, private val apiController: ApiController): DataController {
+class DataControllerImpl(private val db: GifBoxDatabase,
+                         private val apiController: ApiController): DataController {
 
     init {
         Completable.fromCallable {
@@ -27,7 +28,7 @@ class DataControllerImpl(private val db: GifBoxDatabase, private val apiControll
     override fun fetchTrending(offset: Int): Observable<PaginationObject> {
         return apiController.fetchTrending(20, "R", offset)
                 .flatMap {
-                    writeGifMetaDatas(it.gifList, Tag.TRENDING_TAG, offset)
+                    writeGifMetaDatas(it.gifList, Tag.TRENDING, offset)
                     Timber.d("pagination data: ${it.pagination}, ${it.pagination.offset}")
                     Observable.just(it.pagination)
                 }.subscribeOn(Schedulers.io())
@@ -42,6 +43,11 @@ class DataControllerImpl(private val db: GifBoxDatabase, private val apiControll
         db.gifTagDao().tagGifs(tag, offset, *gifArray)
     }
 
+    override fun clearGifTags(tag: String) {
+        Completable.fromCallable {
+            db.gifTagDao().clearTag(tag)
+        }.subscribeOn(Schedulers.io()).subscribe()
+    }
 
     // db reads
 
@@ -58,4 +64,5 @@ interface DataController {
     fun fetchTrending(offset: Int = 0): Observable<PaginationObject>
     fun getAllGifs(): LiveData<List<Gif>>
     fun getAllGifsPaginated(): DataSource.Factory<Int, Gif>
+    fun clearGifTags(tag: String)
 }

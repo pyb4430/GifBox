@@ -8,8 +8,8 @@ import android.arch.persistence.room.OnConflictStrategy.IGNORE
 class Tag(@PrimaryKey val id: String) {
     companion object {
         // List of tags to prepopulate the database with
-        const val TRENDING_TAG = "trending"
-        val TAGS = arrayOf(Tag(TRENDING_TAG))
+        const val TRENDING = "trending"
+        val TAGS = arrayOf(Tag(TRENDING))
     }
 }
 

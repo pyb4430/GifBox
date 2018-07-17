@@ -5,10 +5,8 @@ import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import com.example.taylor.gifbox.model.Gif
 import com.example.taylor.gifbox.viewmodel.MainActivityVM
 import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,15 +19,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewModel = ViewModelProviders.of(this).get(MainActivityVM::class.java)
-//        viewModel.trendingGifs.observe(this, Observer<List<Gif>> { t -> Timber.d("gif list: $t") })
         viewModel.trendingGifPagedList.observe(this, Observer { adapter.submitList(it)})
 
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        feedRecyclerView.adapter = adapter
+        feedRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        feedSwipeRefresh.setOnRefreshListener {
+            viewModel.refreshTrending()
+        }
+
+        viewModel.trendingLoading.observe(this, Observer {
+            feedSwipeRefresh.isRefreshing = it == true
+        })
     }
 
     override fun onResume() {
         super.onResume()
-//        viewModel.fetchTrending()
+
+        viewModel.refreshTrending()
     }
 }

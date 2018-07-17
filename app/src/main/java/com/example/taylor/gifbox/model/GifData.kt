@@ -15,13 +15,13 @@ data class Gif(@PrimaryKey val id: String,
                val url: String,
                @Embedded @Json(name = "images") val gifImageData: GifImageData)
 
-data class GifImageData(@Embedded(prefix = "original_still_") @Json(name = "original_still") val originalStill: GifData,
-                        @Embedded(prefix = "preview_") val preview: GifData,
-                        @Embedded(prefix = "fixed_width_small_still_") @Json(name = "fixed_width_small_still") val fixedWidthSmallStill: GifData,
-                        @Embedded(prefix = "fixed_width_small_") @Json(name = "fixed_width_small") val fixedWidthSmall: GifData)
+data class GifImageData(@Embedded(prefix = "original_still_") @Json(name = "original_still") val originalStill: GifData?,
+                        @Embedded(prefix = "preview_") val preview: GifData?,
+                        @Embedded(prefix = "fixed_width_small_still_") @Json(name = "fixed_width_small_still") val fixedWidthSmallStill: GifData?,
+                        @Embedded(prefix = "fixed_width_small_") @Json(name = "fixed_width_small") val fixedWidthSmall: GifData?)
 
-data class GifData(val width: Int,
-                   val height: Int,
+data class GifData(val width: Int?,
+                   val height: Int?,
                    val size: Long?,
                    val url: String?,
                    val mp4: String?,
@@ -33,13 +33,13 @@ interface GifDao {
     @Insert(onConflict = REPLACE)
     fun insertAll(vararg gif: Gif)
 
-    @Query("SELECT * FROM gif INNER JOIN gif_tag_join ON gif.id=gif_tag_join.gifId WHERE tagId == '${Tag.TRENDING_TAG}' ORDER BY position")
+    @Query("SELECT * FROM gif INNER JOIN gif_tag_join ON gif.id=gif_tag_join.gifId WHERE tagId == '${Tag.TRENDING}' ORDER BY position")
     fun getAllPaginated(): DataSource.Factory<Int, Gif>
 
     @Query("SELECT * FROM gif")
     fun getAll(): LiveData<List<Gif>>
 
-    @Query("SELECT * FROM gif INNER JOIN gif_tag_join WHERE tagId == '${Tag.TRENDING_TAG}' ORDER BY position")
+    @Query("SELECT * FROM gif INNER JOIN gif_tag_join WHERE tagId == '${Tag.TRENDING}' ORDER BY position")
     fun getAllNow(): List<Gif>
 }
 
@@ -57,7 +57,7 @@ data class PaginationObject(val offset: Int,
                     parentColumns = ["id"],
                     childColumns = ["tagId"])
         ])
-class GifTagJoin(val gifId: String, val tagId: String, val position: Int)
+class GifTagJoin(val gifId: String, val tagId: String, val position: Int = 0)
 
 @Dao
 abstract class GifTagDao {
@@ -70,8 +70,11 @@ abstract class GifTagDao {
             GifTagJoin(gif.id, tag, offset + index)
         }
         gifTagJoins.forEachIndexed { index, gifTagJoin ->
-            Timber.d("heres tag ${index}: ${gifTagJoin.gifId} ${gifTagJoin.position}")
+            Timber.d("heres tag $index: ${gifTagJoin.gifId} ${gifTagJoin.position}")
         }
         insertAll(*gifTagJoins.toTypedArray())
     }
+
+    @Query("DELETE FROM gif_tag_join WHERE tagId = :tag")
+    abstract fun clearTag(tag: String)
 }
