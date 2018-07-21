@@ -6,17 +6,19 @@ import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import com.example.taylor.gifbox.controller.ApiController
 import com.example.taylor.gifbox.controller.DataController
+import com.example.taylor.gifbox.controller.DataControllerImpl
 import com.example.taylor.gifbox.module.GifBoxDatabase
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Observable
 import org.junit.*
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.ClassRule
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito
 
 
@@ -39,11 +41,11 @@ class DataControllerTest {
     fun setup() {
         db = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getContext(), GifBoxDatabase::class.java).allowMainThreadQueries().build()
         mockApiController = Mockito.mock(ApiController::class.java)
-        dataController = DataController(db, mockApiController)
+        dataController = DataControllerImpl(db, mockApiController)
 
         //TODO: Use getObjFromJsonFile instead
         val gifListResponse = getGifListResponse()
-        whenever(mockApiController.fetchTrending(ArgumentMatchers.anyInt(), ArgumentMatchers.anyString())).thenReturn(Observable.just(gifListResponse))
+        whenever(mockApiController.fetchTrending(anyInt(), anyString(), anyInt())).thenReturn(Observable.just(gifListResponse))
     }
 
     @After

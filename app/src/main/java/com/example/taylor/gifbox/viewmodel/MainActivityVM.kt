@@ -21,8 +21,6 @@ class MainActivityVM(application: Application): AndroidViewModel(application) {
     lateinit var dataController: DataController
 
     val trendingGifPagedList: LiveData<PagedList<Gif>>
-    val pagingCallback: TrendingBoundaryCallback
-
     val firstPageLoading = MutableLiveData<Boolean>()
 
     init {
@@ -30,7 +28,7 @@ class MainActivityVM(application: Application): AndroidViewModel(application) {
 
         firstPageLoading.value = false
 
-        pagingCallback = TrendingBoundaryCallback(application, firstPageLoading)
+        val pagingCallback = TrendingBoundaryCallback(application, firstPageLoading)
         trendingGifPagedList = LivePagedListBuilder(dataController.getAllGifsPaginated(), 10)
                 .setBoundaryCallback(pagingCallback)
                 .build()
@@ -47,8 +45,8 @@ class TrendingBoundaryCallback(application: GifBoxApplication,
     @Inject
     lateinit var dataController: DataController
 
-    var disposable: Disposable? = null
-    var pagination: PaginationObject? = null
+    private var disposable: Disposable? = null
+    private var pagination: PaginationObject? = null
 
     init {
         application.appComponent.inject(this)
