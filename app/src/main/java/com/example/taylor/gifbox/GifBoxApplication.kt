@@ -1,9 +1,7 @@
 package com.example.taylor.gifbox
 
 import android.app.Application
-import com.example.taylor.gifbox.module.ApiModule
-import com.example.taylor.gifbox.module.AppModule
-import com.example.taylor.gifbox.module.DataModule
+import com.example.taylor.gifbox.module.*
 import okhttp3.logging.HttpLoggingInterceptor
 import timber.log.Timber
 

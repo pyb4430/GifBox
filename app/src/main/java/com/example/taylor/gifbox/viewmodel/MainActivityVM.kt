@@ -3,9 +3,15 @@ package com.example.taylor.gifbox.viewmodel
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+import android.arch.paging.LivePagedListBuilder
+import android.arch.paging.PagedList
 import com.example.taylor.gifbox.GifBoxApplication
+import com.example.taylor.gifbox.adapter.TrendingBoundaryCallback
 import com.example.taylor.gifbox.controller.DataController
 import com.example.taylor.gifbox.model.Gif
+import com.example.taylor.gifbox.model.Tag
+
 import javax.inject.Inject
 
 class MainActivityVM(application: Application): AndroidViewModel(application) {
@@ -13,15 +19,21 @@ class MainActivityVM(application: Application): AndroidViewModel(application) {
     @Inject
     lateinit var dataController: DataController
 
-    val trendingGifs: LiveData<List<Gif>>
+    val trendingGifPagedList: LiveData<PagedList<Gif>>
+    val firstPageLoading = MutableLiveData<Boolean>()
 
     init {
         (application as GifBoxApplication).appComponent.inject(this)
 
-        trendingGifs = dataController.getAllGifs()
+        firstPageLoading.value = false
+
+        val pagingCallback = TrendingBoundaryCallback(application, firstPageLoading)
+        trendingGifPagedList = LivePagedListBuilder(dataController.getAllGifsPaginated(), 10)
+                .setBoundaryCallback(pagingCallback)
+                .build()
     }
 
-    fun fetchTrending() {
-        dataController.fetchTrending()
+    fun refreshTrending() {
+        dataController.clearGifTags(Tag.TRENDING)
     }
 }

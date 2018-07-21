@@ -1,6 +1,6 @@
 package com.example.taylor.gifbox.module
 
-import com.example.taylor.gifbox.GiphyApi
+import com.example.taylor.gifbox.controller.GiphyApi
 import com.example.taylor.gifbox.controller.ApiController
 import com.example.taylor.gifbox.controller.ApiControllerImpl
 import com.squareup.moshi.Moshi

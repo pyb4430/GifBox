@@ -1,8 +1,6 @@
-package com.example.taylor.gifbox
+package com.example.taylor.gifbox.module
 
-import com.example.taylor.gifbox.module.ApiModule
-import com.example.taylor.gifbox.module.AppModule
-import com.example.taylor.gifbox.module.DataModule
+import com.example.taylor.gifbox.adapter.TrendingBoundaryCallback
 import com.example.taylor.gifbox.viewmodel.MainActivityVM
 import dagger.Component
 import javax.inject.Singleton
@@ -14,4 +12,5 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class, ApiModule::class, DataModule::class])
 interface AppComponent {
     fun inject(mainActivityVM: MainActivityVM)
+    fun inject(trendingBoundaryCallback: TrendingBoundaryCallback)
 }
