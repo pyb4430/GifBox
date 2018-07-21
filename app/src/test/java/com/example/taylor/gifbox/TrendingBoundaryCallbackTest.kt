@@ -1,10 +1,10 @@
 package com.example.taylor.gifbox
 
 import android.arch.lifecycle.MutableLiveData
+import com.example.taylor.gifbox.adapter.TrendingBoundaryCallback
 import com.example.taylor.gifbox.model.Gif
 import com.example.taylor.gifbox.model.GifImageData
-import com.example.taylor.gifbox.model.PaginationObject
-import com.example.taylor.gifbox.viewmodel.TrendingBoundaryCallback
+import com.example.taylor.gifbox.response.PaginationObject
 import com.nhaarman.mockitokotlin2.*
 import io.reactivex.Observable
 import org.junit.Before

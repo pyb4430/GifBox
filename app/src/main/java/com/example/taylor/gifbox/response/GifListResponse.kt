@@ -1,7 +1,6 @@
 package com.example.taylor.gifbox.response
 
 import com.example.taylor.gifbox.model.Gif
-import com.example.taylor.gifbox.model.PaginationObject
 import com.squareup.moshi.Json
 
 /**
@@ -9,3 +8,7 @@ import com.squareup.moshi.Json
  */
 class GifListResponse(@Json(name = "data") val gifList: List<Gif>,
                       val pagination: PaginationObject)
+
+data class PaginationObject(val offset: Int,
+                            @Json(name = "total_count") val totalCount: Int,
+                            val count: Int)

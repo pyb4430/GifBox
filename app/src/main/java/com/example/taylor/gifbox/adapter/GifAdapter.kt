@@ -1,4 +1,4 @@
-package com.example.taylor.gifbox
+package com.example.taylor.gifbox.adapter
 
 import android.arch.paging.PagedListAdapter
 import android.support.v7.util.DiffUtil
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.taylor.gifbox.R
 import com.example.taylor.gifbox.model.Gif
 import kotlinx.android.synthetic.main.cell_gif.view.*
 

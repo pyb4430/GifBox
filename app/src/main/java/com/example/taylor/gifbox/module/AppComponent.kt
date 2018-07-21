@@ -1,10 +1,7 @@
-package com.example.taylor.gifbox
+package com.example.taylor.gifbox.module
 
-import com.example.taylor.gifbox.module.ApiModule
-import com.example.taylor.gifbox.module.AppModule
-import com.example.taylor.gifbox.module.DataModule
+import com.example.taylor.gifbox.adapter.TrendingBoundaryCallback
 import com.example.taylor.gifbox.viewmodel.MainActivityVM
-import com.example.taylor.gifbox.viewmodel.TrendingBoundaryCallback
 import dagger.Component
 import javax.inject.Singleton
 

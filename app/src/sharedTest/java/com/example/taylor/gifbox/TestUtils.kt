@@ -2,10 +2,11 @@ package com.example.taylor.gifbox
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
+import com.example.taylor.gifbox.adapter.TrendingBoundaryCallback
 import com.example.taylor.gifbox.controller.DataController
+import com.example.taylor.gifbox.module.AppComponent
 import com.example.taylor.gifbox.response.GifListResponse
 import com.example.taylor.gifbox.viewmodel.MainActivityVM
-import com.example.taylor.gifbox.viewmodel.TrendingBoundaryCallback
 import com.nhaarman.mockitokotlin2.mock
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

@@ -3,9 +3,9 @@ package com.example.taylor.gifbox.controller
 import android.arch.lifecycle.LiveData
 import android.arch.paging.DataSource
 import com.example.taylor.gifbox.model.Gif
-import com.example.taylor.gifbox.model.PaginationObject
 import com.example.taylor.gifbox.model.Tag
 import com.example.taylor.gifbox.module.GifBoxDatabase
+import com.example.taylor.gifbox.response.PaginationObject
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers

@@ -43,9 +43,6 @@ interface GifDao {
     fun getAllNow(): List<Gif>
 }
 
-data class PaginationObject(val offset: Int,
-                            @Json(name = "total_count") val totalCount: Int,
-                            val count: Int)
 
 @Entity(tableName = "gif_tag_join",
         primaryKeys = [ "gifId", "tagId" ],
@@ -56,7 +53,8 @@ data class PaginationObject(val offset: Int,
             ForeignKey(entity = Tag::class,
                     parentColumns = ["id"],
                     childColumns = ["tagId"])
-        ])
+        ],
+        indices = [Index("tagId")])
 class GifTagJoin(val gifId: String, val tagId: String, val position: Int = 0)
 
 @Dao

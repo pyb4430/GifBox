@@ -1,6 +1,5 @@
 package com.example.taylor.gifbox.controller
 
-import com.example.taylor.gifbox.GiphyApi
 import com.example.taylor.gifbox.response.GifListResponse
 import io.reactivex.Observable
 
